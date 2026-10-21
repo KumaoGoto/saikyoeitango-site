@@ -1,0 +1,133 @@
+/* 最強英単語のサポートサイト（v1 仕様 §12.8）。色はアプリの AppColors（§2.2 の「藍と金」）と同じ値。
+   外部の読み込みは無い（書体は端末のもの）。ライトとダークは端末の外観に従う。 */
+:root {
+  --bg: #F7F6F2;
+  --surface: #FFFFFF;
+  --sunken: #EFEDE7;
+  --border: #DEDAD0;
+  --text: #16181F;
+  --text2: #474B5A;
+  --text3: #5E6373;
+  --primary: #3346C8;
+  --on-primary: #FFFFFF;
+  --link: #2F41BC;
+  --soft: #E6E8F7;
+  --gold: #8C5D00;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0C0E1D;
+    --surface: #151935;
+    --sunken: #10132A;
+    --border: #2A3052;
+    --text: #EEEFF4;
+    --text2: #B6BBCB;
+    --text3: #949AAE;
+    --primary: #5566E6;
+    --on-primary: #FFFFFF;
+    --link: #A3AEFF;
+    --soft: #262C58;
+    --gold: #F2B544;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "Noto Sans JP", "Yu Gothic", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  font-feature-settings: "palt" 0;
+}
+.wrap { max-width: 42rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+@media (min-width: 390px) { .wrap { padding-left: 1.25rem; padding-right: 1.25rem; } }
+
+a { color: var(--link); text-underline-offset: 0.18em; }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; border-radius: 6px; }
+
+nav.site {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1.75rem;
+  font-size: 0.9rem;
+}
+nav.site a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.85rem;
+  border: 1px solid var(--border); border-radius: 999px; background: var(--surface);
+  color: var(--text); text-decoration: none;
+}
+nav.site a[aria-current="page"] { background: var(--soft); border-color: transparent; color: var(--link); font-weight: 600; }
+
+header.hero { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; }
+header.hero img { flex: none; width: 64px; height: 64px; border-radius: 14px; }
+header.hero h1 { font-size: 1.75rem; line-height: 1.25; margin: 0; letter-spacing: 0.02em; }
+header.hero p { margin: 0.25rem 0 0; color: var(--text2); font-size: 0.95rem; text-wrap: balance; }
+h1, h2, h3, .lead { text-wrap: pretty; }
+@media (max-width: 359px) { header.hero img { width: 52px; height: 52px; border-radius: 11.5px; } header.hero { gap: 0.75rem; } }
+
+h1 { font-size: 1.6rem; line-height: 1.3; margin: 0 0 1rem; }
+h2 {
+  font-size: 1.3rem; line-height: 1.35; margin: 2.5rem 0 0.75rem;
+  padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+}
+h3 { font-size: 1.05rem; line-height: 1.4; margin: 1.5rem 0 0.4rem; }
+p, li { color: var(--text); }
+ul, ol { padding-left: 1.3rem; }
+li + li { margin-top: 0.35rem; }
+.lead { font-size: 1.05rem; }
+.note { color: var(--text3); font-size: 0.85rem; line-height: 1.6; }
+.muted { color: var(--text2); }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+  padding: 1rem 1.1rem; margin: 0.75rem 0;
+}
+.card > :first-child { margin-top: 0; }
+.card > :last-child { margin-bottom: 0; }
+
+dl.states { margin: 0.5rem 0; }
+dl.states dt { font-weight: 600; margin-top: 0.75rem; }
+dl.states dd { margin: 0.1rem 0 0; color: var(--text2); }
+
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; margin: 0.5rem 0; }
+th, td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); }
+th { color: var(--text2); font-weight: 600; white-space: nowrap; }
+.num { font-variant-numeric: tabular-nums; }
+
+details.faq { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin: 0.6rem 0; }
+details.faq summary {
+  cursor: pointer; list-style: none; padding: 0.75rem 2.4rem 0.75rem 1.1rem; min-height: 44px;
+  font-weight: 600; position: relative;
+}
+details.faq summary::-webkit-details-marker { display: none; }
+details.faq summary::after {
+  content: ""; position: absolute; right: 1.1rem; top: 50%; width: 0.55rem; height: 0.55rem;
+  border-right: 2px solid var(--text3); border-bottom: 2px solid var(--text3);
+  transform: translateY(-70%) rotate(45deg); transition: transform 0.15s ease-out;
+}
+details.faq[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+details.faq .a { padding: 0 1.1rem 0.9rem; }
+details.faq .a > :first-child { margin-top: 0; }
+details.faq .a > :last-child { margin-bottom: 0; }
+@media (prefers-reduced-motion: reduce) { details.faq summary::after { transition: none; } }
+
+ol.promises { list-style: none; padding: 0; counter-reset: p; }
+ol.promises li { counter-increment: p; margin: 0.75rem 0; padding-left: 2.2rem; position: relative; }
+ol.promises li::before {
+  content: counter(p); position: absolute; left: 0; top: 0.1rem; width: 1.6rem; height: 1.6rem;
+  border-radius: 999px; background: var(--soft); color: var(--link); font-weight: 700;
+  font-size: 0.9rem; line-height: 1.6rem; text-align: center;
+}
+ol.promises b { display: block; }
+
+a.button {
+  display: flex; align-items: center; justify-content: center; min-height: 56px; margin: 1.25rem 0;
+  border-radius: 10px; background: var(--primary); color: var(--on-primary); font-weight: 700;
+  text-decoration: none; font-size: 1.05rem;
+}
+
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--text3); font-size: 0.85rem; }
+footer a { color: var(--text2); }
